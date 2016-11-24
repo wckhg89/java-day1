@@ -31,4 +31,11 @@ public class QuestionController {
 
         return "/qna/index"; // templates 에 매핑된곳에 간다
     }
+
+    @GetMapping("/qna/form")
+    public String getQnaForm(Model model) {
+        model.addAttribute("questions", questions);
+
+        return "/qna/form"; // templates 에 매핑된곳에 간다
+    }
 }
