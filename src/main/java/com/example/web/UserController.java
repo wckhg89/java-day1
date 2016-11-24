@@ -1,6 +1,7 @@
 package com.example.web;
 
 
+import com.example.model.Question;
 import com.example.model.User;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 // @RequestMapping("/user")
 public class UserController {
     private ArrayList<User> users = new ArrayList<>();
+
     // controller return 값 string
     // @RequestBody로 바꿔보기
     @PostMapping("/user/create") // spring 4.x 부터 생김
@@ -37,4 +39,7 @@ public class UserController {
 
         return "/user/list"; // templates 에 매핑된곳에 간다
     }
+
+
+
 }

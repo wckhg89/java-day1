@@ -8,7 +8,8 @@ public class User {
     private String userId;
     private String password;
     private String name;
-    private String email;
+    private String email; // java reflection
+
 
 
     public void setUserId(String userId) {
@@ -18,8 +19,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     public void setName(String name) {
         this.name = name;
