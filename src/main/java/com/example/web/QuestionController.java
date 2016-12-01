@@ -30,6 +30,8 @@ public class QuestionController {
         if (sessionUser == null) {
             return "redirect:/users/login";
         }
+
+        question.setUser((User)sessionUser);
         questionRepository.save(question);
 
         return "redirect:/";

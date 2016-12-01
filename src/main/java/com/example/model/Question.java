@@ -16,6 +16,12 @@ public class Question {
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
     private User user;
 
+    @Column(unique = true, length = 100, nullable = false)
+    private String title;
+
+    @Column(unique = true, length = 255, nullable = false)
+    private String contents;
+
     public User getUser() {
         return user;
     }
@@ -23,12 +29,6 @@ public class Question {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @Column(unique = true, length = 100, nullable = false)
-    private String title;
-
-    @Column(unique = true, length = 255, nullable = false)
-    private String contents;
 
 
     public String getTitle() {
