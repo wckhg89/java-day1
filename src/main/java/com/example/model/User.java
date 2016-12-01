@@ -6,6 +6,8 @@ import javax.persistence.*;
  * Created by 강홍구 on 2016-11-24.
  */
 
+
+// 객체는 상태와 !행동!을 같이 가지고 있다.
 @Entity
 public class User {
 
@@ -22,11 +24,21 @@ public class User {
     @Column(length = 30, nullable = true)
     private String email; // java reflection
 
+
+    public boolean matchId(Long id) {
+        return this.id.equals(id);
+    }
+
+    public boolean matchPassword (String password) {
+        return this.password.equals(password);
+    }
+
     public void update (User user) {
-        if (password.equals(user.password)) {
-            this.name = user.name;
-            this.email = user.email;
+        if (!this.matchPassword(user.password)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않는다.");
         }
+        this.name = user.name;
+        this.email = user.email;
     }
 
     public User() {

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  */
 
 public interface UserRepository extends JpaRepository<User, Long> { // <type, pk>
-
+    User findByUserId(String userId); // 메소드 컨벤션에 의해서 쿼리를 만들 수 있다.
 
 }

@@ -1,9 +1,6 @@
 package com.example.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by 강홍구 on 2016-11-24.
@@ -15,20 +12,24 @@ public class Question {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true, length = 20, nullable = false)
-    private String writer;
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Column(unique = true, length = 100, nullable = false)
     private String title;
+
     @Column(unique = true, length = 255, nullable = false)
     private String contents;
 
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
 
     public String getTitle() {
         return title;
@@ -46,12 +47,4 @@ public class Question {
         this.contents = contents;
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "writer='" + writer + '\'' +
-                ", title='" + title + '\'' +
-                ", contents='" + contents + '\'' +
-                '}';
-    }
 }
