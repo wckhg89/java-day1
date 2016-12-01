@@ -72,18 +72,26 @@ public class UserController {
         return "/user/form";
     }
 
-    @GetMapping("/{id}/form")
-    public String updateForm (@PathVariable Long id, Model model, HttpSession session) {
-
+    private boolean matchSessionId (Long id, HttpSession session) {
         Object sessionUser = session.getAttribute("loginUser");
 
         if (sessionUser == null) {
-            return "redirect:/users/login";
+            return false;
         }
         User loginUser = (User) sessionUser;
 
         if (!loginUser.matchId(id)) {
             throw new IllegalStateException("다른 사람의 정보를 수정 할 수 없습니다.");
+        }
+
+        return true;
+    }
+
+    @GetMapping("/{id}/form")
+    public String updateForm (@PathVariable Long id, Model model, HttpSession session) {
+
+        if(!matchSessionId(id, session)) {
+            return "redirect:/users/login";
         }
 
         model.addAttribute("user", userRepository.findOne(id));
@@ -94,15 +102,8 @@ public class UserController {
     @PutMapping("/{id}/update")
     public String update(@PathVariable Long id, User user, HttpSession session) {
 
-        Object sessionUser = session.getAttribute("loginUser");
-
-        if (sessionUser == null) {
+        if(!matchSessionId(id, session)) {
             return "redirect:/users/login";
-        }
-        User loginUser = (User) sessionUser;
-
-        if (!loginUser.matchId(id)) {
-            throw new IllegalStateException("다른 사람의 정보를 수정 할 수 없습니다.");
         }
 
         // userRepository.save(user); : 전체 필드를 업데이트 치기 때문에 좋은 습관이 아니다
